@@ -15,6 +15,7 @@ def main():
             if event.type == pygame.QUIT:  # closes window/quits game
                 return
 
+        player.update(dt)  # updates player movement
         screen.fill((0, 0, 0))  # fills frame with RGB/A color
         player.draw(screen)
         pygame.display.flip()  # update contents of the whole display
