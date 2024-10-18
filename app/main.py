@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -13,6 +14,7 @@ def main():
     updateable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+
     # adds instance of player class to two groups
     Player.containers = (updateable, drawable)
     Asteroid.containers = (updateable, drawable, asteroids)
@@ -30,8 +32,15 @@ def main():
         screen.fill((0, 0, 0))  # fills frame with RGB/A color
         for item in updateable:  # updates player movement
             item.update(dt)
+
+        for asteroid in asteroids:  # collision detection between asteroids and player
+            if asteroid.collides_with(player):
+                print("Game Over!")
+                sys.exit()
+
         for item in drawable:  # draws sprites to screen
             item.draw(screen)
+
         pygame.display.flip()  # update contents of the whole display
         dt = clock.tick(60) / 1000  # limits frames to 60 fps
 
